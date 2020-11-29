@@ -14,7 +14,10 @@ import firebase from "../database/firebase";
 const UserDetailScreen = (props) => {
   const initialState = {
     id: "",
-    name: "",
+      name: "",
+      apellidoP: "",
+      apellidoM: "",
+    edad:"",
     email: "",
     phone: "",
   };
@@ -24,7 +27,9 @@ const UserDetailScreen = (props) => {
 
   const handleTextChange = (value, prop) => {
     setUser({ ...user, [prop]: value });
-  };
+    };
+
+ 
 
   const getUserById = async (id) => {
     const dbRef = firebase.db.collection("users").doc(id);
@@ -61,7 +66,10 @@ const UserDetailScreen = (props) => {
   const updateUser = async () => {
     const userRef = firebase.db.collection("users").doc(user.id);
     await userRef.set({
-      name: user.name,
+        name: user.name,
+        apellidoP: user.apellidoP,
+        apellidoM: user.apellidoM,
+        edad: user.edad,
       email: user.email,
       phone: user.phone,
     });
@@ -91,7 +99,38 @@ const UserDetailScreen = (props) => {
           value={user.name}
           onChangeText={(value) => handleTextChange(value, "name")}
         />
-      </View>
+          </View>
+
+          <View>
+              <TextInput
+                  placeholder="Apellido Paterno"
+                  autoCompleteType="username"
+                  style={styles.inputGroup}
+                  value={user.apellidoP}
+                  onChangeText={(value) => handleTextChange(value, "apellidoP")}
+              />
+          </View>
+
+          <View>
+              <TextInput
+                  placeholder="Apellido MAterno"
+                  autoCompleteType="username"
+                  style={styles.inputGroup}
+                  value={user.apellidoM}
+                  onChangeText={(value) => handleTextChange(value, "apellidoM")}
+              />
+          </View>
+
+          <View>
+              <TextInput
+                  placeholder="Edad"
+                  autoCompleteType="name"
+                  style={styles.inputGroup}
+                  value={user.edad}
+                  onChangeText={(value) => handleTextChange(value, "edad")}
+              />
+          </View>
+
       <View>
         <TextInput
           autoCompleteType="email"
@@ -106,8 +145,9 @@ const UserDetailScreen = (props) => {
           placeholder="Phone"
           autoCompleteType="tel"
           style={styles.inputGroup}
-          value={user.phone}
-          onChangeText={(value) => handleTextChange(value, "phone")}
+                  value={user.phone}
+                  maxLength={10}
+                  onChangeText={(value) => handleTextChange(value, "phone")}
         />
       </View>
       <View style={styles.btn}>

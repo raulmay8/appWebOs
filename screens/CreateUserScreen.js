@@ -11,12 +11,17 @@ import firebase from "../database/firebase";
 
 const AddUserScreen = (props) => {
   const initalState = {
-    name: "",
+      name: "",
+      apellidoM: "",
+      apellidoP: "",
+      edad: "",
     email: "",
     phone: "",
   };
 
-  const [state, setState] = useState(initalState);
+    const [state, setState] = useState(initalState);
+
+  
 
   const handleChangeText = (value, name) => {
     setState({ ...state, [name]: value });
@@ -29,7 +34,10 @@ const AddUserScreen = (props) => {
 
       try {
         await firebase.db.collection("users").add({
-          name: state.name,
+            name: state.name,
+            apellidoP: state.apellidoP,
+            apellidoM: state.apellidoM,
+            edad: state.edad,
           email: state.email,
           phone: state.phone,
         });
@@ -50,7 +58,35 @@ const AddUserScreen = (props) => {
           onChangeText={(value) => handleChangeText(value, "name")}
           value={state.name}
         />
-      </View>
+          </View>
+
+          {/* Apellido paterno Input */}
+          <View style={styles.inputGroup}>
+              <TextInput
+                  placeholder="Apellido Paterno"
+                  onChangeText={(value) => handleChangeText(value, "apellidoP")}
+                  value={state.apellidoP}
+              />
+          </View>
+
+          {/* Apellido materno Input */}
+          <View style={styles.inputGroup}>
+              <TextInput
+                  placeholder="Apellido Materno"
+                  onChangeText={(value) => handleChangeText(value, "apellidoM")}
+                  value={state.apellidoM}
+              />
+          </View>
+
+          {/* Edad Input */}
+          <View style={styles.inputGroup}>
+              <TextInput
+                  placeholder="Edad"
+                  onChangeText={(value) => handleChangeText(value, "edad")}
+                  value={state.edad}
+              />
+          </View>
+
 
       {/* Email Input */}
       <View style={styles.inputGroup}>
@@ -66,9 +102,10 @@ const AddUserScreen = (props) => {
       {/* Input */}
       <View style={styles.inputGroup}>
         <TextInput
-          placeholder="phone"
-          onChangeText={(value) => handleChangeText(value, "phone")}
-          value={state.phone}
+                  placeholder="phone"
+                  onChangeText={(value) => handleChangeText(value, "phone")}
+                  value={state.phone}
+                  maxLength={10}
         />
       </View>
 

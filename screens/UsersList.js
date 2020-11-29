@@ -12,10 +12,13 @@ const UserScreen = (props) => {
     firebase.db.collection("users").onSnapshot((querySnapshot) => {
       const users = [];
       querySnapshot.docs.forEach((doc) => {
-        const { name, email, phone } = doc.data();
+        const { name, apellidoP, apellidoM, edad, email, phone } = doc.data();
         users.push({
           id: doc.id,
-          name,
+            name,
+            apellidoP,
+            apellidoM,
+            edad,
           email,
           phone,
         });
@@ -45,7 +48,7 @@ const UserScreen = (props) => {
             <Avatar
               source={{
                 uri:
-                  "https://scontent.fisj1-1.fna.fbcdn.net/v/t1.0-9/126493302_10222329272273243_5517742167749966842_n.jpg?_nc_cat=109&ccb=2&_nc_sid=09cbfe&_nc_ohc=17O6kEkHNfQAX-vF9z_&_nc_ht=scontent.fisj1-1.fna&oh=a6d71caec86ee2a47a8bd381025038c9&oe=5FE6A801",
+                      `https://robohash.org/${user.name}`
               }}
               rounded
             />
